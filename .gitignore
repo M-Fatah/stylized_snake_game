@@ -1,3 +1,7 @@
+[Rr]elease/
+[Dd]ebug/
+[Xx]64/
+
 # Prerequisites
 *.d
 
@@ -14,7 +18,10 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
+
+# Visual Studio cache directory
+.vs/
+.vscode/
 
 # Fortran module files
 *.mod
@@ -24,7 +31,7 @@
 *.lai
 *.la
 *.a
-*.lib
+
 
 # Executables
 *.exe
