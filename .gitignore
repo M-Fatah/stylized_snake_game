@@ -15,10 +15,6 @@
 *.gch
 *.pch
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-
 # Visual Studio cache directory
 .vs/
 .vscode/
@@ -26,11 +22,6 @@
 # Fortran module files
 *.mod
 *.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
 
 
 # Executables
