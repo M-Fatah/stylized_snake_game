@@ -8,7 +8,7 @@ A cross-platform desktop stylized version of snake game made from scratch in C++
 - Everything needed is included in this repository, it also has Visual Studio 2019 project files.
 
 ## Dependencies
-- [GLFW](https://www.glfw.org/)
+- [GLFW](https://www.glfw.org/)/[GLAD](https://glad.dav1d.de/)
 - [GLM](https://glm.g-truc.net/0.9.9/index.html)
 - [glText](https://github.com/vallentin/glText)
 - [stb_vorbis.c](https://github.com/nothings/stb/blob/master/stb_vorbis.c)
