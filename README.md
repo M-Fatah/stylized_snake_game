@@ -10,6 +10,7 @@ A cross-platform desktop stylized version of snake game made from scratch in C++
 ## Dependencies
 - [GLFW](https://www.glfw.org/)/[GLAD](https://glad.dav1d.de/)
 - [GLM](https://glm.g-truc.net/0.9.9/index.html)
+- [OpenAL Soft](https://github.com/kcat/openal-soft)
 - [glText](https://github.com/vallentin/glText)
 - [stb_vorbis.c](https://github.com/nothings/stb/blob/master/stb_vorbis.c)
 - [stb_image.h](https://github.com/nothings/stb/blob/master/stb_image.h)
