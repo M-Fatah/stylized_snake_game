@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
 
@@ -20,21 +22,9 @@ struct Particle
 class Particle_System
 {
 public:
-	
+
 	glm::vec2 position;
-	glm::vec4 color;
-
-	bool loop;
-	float reset_after;
-
-	unsigned int max_particles_num;
-	unsigned int num_particles_per_frame;
-	unsigned int next_particle_index;
-
-	Particle particles[256];
-
-	Texture2D particle_texture;
-
+	
 	Particle_System(glm::vec2 _position, Texture2D _particle_texture, glm::vec4 _color, unsigned int _max_particles_num, unsigned int _num_particles_per_frame, bool _loop = false);
 
 	void update(float dt);
@@ -42,4 +32,19 @@ public:
 	void reset();
 
 	void self_draw(Renderer& renderer);
+
+private:
+	
+	Texture2D particle_texture;
+
+	glm::vec4 color;
+
+	std::vector<Particle> particles;
+
+	bool loop;
+	float reset_after;
+
+	unsigned int max_particles_num;
+	unsigned int num_particles_per_frame;
+	unsigned int next_particle_index;
 };

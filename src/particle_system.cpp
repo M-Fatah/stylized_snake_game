@@ -10,6 +10,7 @@ Particle_System::Particle_System(glm::vec2 _position, Texture2D _particle_textur
 	num_particles_per_frame = _num_particles_per_frame;
 	reset_after = 0;
 
+	particles.reserve(max_particles_num);
 
 	reset();
 }
@@ -67,13 +68,13 @@ void Particle_System::reset()
 
 	for (unsigned int i = 0; i < max_particles_num; ++i)
 	{
-		Particle* p = &particles[i];
-		p->position = this->position;
-		p->scale = glm::vec2(25);
-		p->velocity = glm::vec2(5.0f, 20.0f);
-		p->color = glm::vec4(1.0f);
-		p->rotation = 0;
-		p->life_time = 1.25f;
+		Particle& p = particles[i];
+		p.position  = this->position;
+		p.scale     = glm::vec2(25);
+		p.velocity  = glm::vec2(5.0f, 20.0f);
+		p.color     = glm::vec4(1.0f);
+		p.rotation  = 0;
+		p.life_time = 1.25f;
 	}
 }
 
@@ -81,6 +82,10 @@ void Particle_System::self_draw(Renderer& renderer)
 {
 	for (unsigned int i = 0; i < max_particles_num; ++i)
 	{
-		renderer.draw_quad(particle_texture, particles[i].position, particles[i].scale, particles[i].rotation, particles[i].color);
+		const Particle& p = particles[i];
+		if (p.life_time > 0)
+		{
+			renderer.draw_quad(particle_texture, p.position, p.scale, p.rotation, p.color);
+		}
 	}
 }
