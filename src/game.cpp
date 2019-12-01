@@ -37,12 +37,10 @@ void Game::init(int width, int height, int tiles_count)
 	// Load audio clips from disk.
 	audio = new Audio();
 
-	//Assets::audio_clips["eat"] = audio->load_wav_from_file("data/audio/big_bite.wav");
 	Assets::audio_clips["eat"] = audio->load_ogg_from_file("data/audio/big_bite.ogg");
+	Assets::audio_clips["crash"] = audio->load_ogg_from_file("data/audio/crash.ogg");
 	Assets::audio_sources["sfx_source"] = audio->create_audio_source(0.75f, 1.f);
 
-	//Audio_Clip bg_clip = Assets::audio_clips["bg"] = audio->load_wav_from_file("data/audio/bg.wav");
-	//Audio_Source music_source = Assets::audio_sources["music_source"] = audio->create_audio_source(0.25f, 2.f);
 	Audio_Clip bg_clip = Assets::audio_clips["bg"] = audio->load_ogg_from_file("data/audio/bg.ogg");
 	Audio_Source music_source = Assets::audio_sources["music_source"] = audio->create_audio_source(0.10f, 1.f);
 	
@@ -276,7 +274,7 @@ void Game::update(float dt)
 
 	ui_animation_dt = abs(sin(a)) - 0.5f;
 
-	if (!game_paused)
+	if (!game_paused && !game_over)
 	{
 		step_timer += dt * snake_speed;
 
@@ -344,11 +342,14 @@ void Game::update(float dt)
 		{
 			if (snake_current_cell == snake[i].cell)
 			{
+				audio->play(Assets::audio_sources["sfx_source"], Assets::audio_clips["crash"], false);
+			
 				// TODO: GAME OVER!
 				// TODO: Cleanup.
 				snake_current_cell = snake_last_cell;
 
 				snake_speed = 0;
+				
 				game_over = true;
 			}
 		}
@@ -358,6 +359,8 @@ void Game::update(float dt)
 		{
 			if (snake[0].cell == rocks[i].cell)
 			{
+				audio->play(Assets::audio_sources["sfx_source"], Assets::audio_clips["crash"], false);
+
 				// TODO: GAME OVER!
 				snake_current_cell = snake_last_cell;
 
@@ -550,11 +553,11 @@ void Game::update_dimensions(int width, int height)
 
 void Game::terminate()
 {
+	Assets::dispose();
+
 	delete apple;
 	delete renderer;
 	delete audio;
 	delete rocks_particles;
 	delete apple_particles;
-
-	Assets::dispose();
 }
