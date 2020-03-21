@@ -12,13 +12,14 @@ void Renderer::init(float width, float height, Shader& _quad_shader)
 	GLfloat quad_vertices[] =
 	{
 		// Anti-clockwise.
-		-0.5f, -0.5f, 0.0f, 0.0f,
-		 0.5f, -0.5f, 1.0f, 0.0f,
-		 0.5f,  0.5f, 1.0f, 1.0f,
-
-		-0.5f, -0.5f, 0.0f, 0.0f,
-		 0.5f,  0.5f, 1.0f, 1.0f,
-		-0.5f,  0.5f, 0.0f, 1.0f
+		// Position       // Texture coords.
+		  -0.5f, -0.5f,      0.0f, 0.0f,
+		   0.5f, -0.5f,      1.0f, 0.0f,
+		   0.5f,  0.5f,      1.0f, 1.0f,
+		  			      
+		  -0.5f, -0.5f,      0.0f, 0.0f,
+		   0.5f,  0.5f,      1.0f, 1.0f,
+		  -0.5f,  0.5f,      0.0f, 1.0f
 	};
 
 	// Generate VAO for quads.
@@ -32,8 +33,12 @@ void Renderer::init(float width, float height, Shader& _quad_shader)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(quad_vertices), quad_vertices, GL_STATIC_DRAW);
 
 	// Vertex attribute configuration for quad.
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)0);
+	// Vertex position.
 	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)0);
+	// Vertex texture coords.
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
 
 	// Unbind quads buffers.
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -43,23 +48,25 @@ void Renderer::init(float width, float height, Shader& _quad_shader)
 	
 	// OpenGL config.
 	glEnable(GL_CULL_FACE);
+	
+	// Blending.
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	// Depth mask.
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
-	glDepthFunc(GL_GEQUAL);
+	glDepthFunc(GL_LEQUAL);
 	glDepthRange(0.0f, 1.0f);
 	
 	// =================================================================== //
-	
 	
 	// Init text rendering.
 	gltInit();
 
 	// =================================================================== //
 
-	this->quad_shader = _quad_shader;
+	this->quad_shader   = _quad_shader;
 	this->render_width  = width;
 	this->render_height = height;
 
@@ -87,7 +94,7 @@ void Renderer::update_render_dimensions(int width, int height)
 
 void Renderer::clear(glm::vec4 color)
 {
-	glClearDepth(0.0f);
+	glClearDepth(1.0f);
 	glClearColor(color.x, color.y, color.z, color.w);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
