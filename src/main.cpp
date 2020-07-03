@@ -70,7 +70,7 @@ int main()
 		glfwSwapInterval(0);
 
 #if defined(_WIN32)
-		// Initialize GLAD after setting current context as it needs a current context to load from. 
+		// Initialize GLAD after setting current context as it needs a context to load from. 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
 			std::cerr << "ERROR: failed to initialize GLAD." << std::endl;
@@ -101,7 +101,7 @@ int main()
 				game.process_input();
 			
 				// Update.
-				game.update(dt);
+				game.update(float(dt));
 
 				// Render.
 				game.render();
@@ -118,11 +118,12 @@ int main()
 				double ms = (display_max_frame_time - time_elapsed_for_frame) * 1000.0;
 
 				if (ms > 0)
-				{
-					std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<unsigned long>(ms)));
-					//std::cout << ms << " ms/sleep. " << time_elapsed_for_frame * 1000 << " elapsed_time/frame. " << dt * 1000 << " dt." << std::endl;
-				}
+					std::this_thread::sleep_for(std::chrono::milliseconds(unsigned long(ms)));
 			}
+
+			char title[256];
+			snprintf(title, sizeof(title), "%.4f CPU TIME", dt * 1000.f);
+			glfwSetWindowTitle(window, title);
 		}
 	}
 

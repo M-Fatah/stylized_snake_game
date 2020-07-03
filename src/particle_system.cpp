@@ -10,7 +10,8 @@ Particle_System::Particle_System(glm::vec2 _position, Texture2D _particle_textur
 	num_particles_per_frame = _num_particles_per_frame;
 	reset_after = 0;
 
-	particles.reserve(max_particles_num);
+	//particles.reserve(max_particles_num);
+	particles.resize(max_particles_num);
 
 	reset();
 }
