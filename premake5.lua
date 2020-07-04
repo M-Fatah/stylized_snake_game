@@ -51,7 +51,10 @@ project "snake_game"
     
     postbuildcommands
     {
-        ("{COPY} lib/OpenAL32.dll build/" .. outputdir .. "/%{prj.name}")
+        ("{COPY} lib/OpenAL32.dll build/" .. outputdir .. "/%{prj.name}"),
+        ("{COPY} data build/package/%{cfg.buildcfg}/data"),
+        ("{COPY} build/" .. outputdir .. "/%{prj.name}/snake_game.exe build/package/%{cfg.buildcfg}/"),
+        ("{COPY} lib/OpenAL32.dll build/package/%{cfg.buildcfg}/")
     }
 
     filter "system:windows"

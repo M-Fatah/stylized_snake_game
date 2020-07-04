@@ -1,6 +1,7 @@
 [Rr]elease/
 [Dd]ebug/
 [Xx]64/
+[Bb]uild/
 
 # Prerequisites
 *.d
@@ -15,6 +16,12 @@
 *.gch
 *.pch
 
+# Visual Studio
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
 # Visual Studio cache directory
 .vs/
 .vscode/
@@ -22,7 +29,6 @@
 # Fortran module files
 *.mod
 *.smod
-
 
 # Executables
 *.exe
